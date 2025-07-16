@@ -4,14 +4,22 @@ package org.example;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Product product = new Product("сыр", "05.02.2025", "МСЗ", "РБ", 19, true);
+        product.info();
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Product[] productsArray = new Product[5];
+        productsArray[0] = new Product("Samsung S25 Ultra", "01.02.2025",
+                "Samsung Corp.", "Korea", 5599, true);
+        productsArray[1] = new Product("Readmy 16 Pro", "05.05.2025",
+                "Xiaomi Communication Co", "China", 2200, true);
+        productsArray[2] = new Product("Apple iPhone 16", "15.04.2025",
+                "Apple Inc", "China", 3099, false);
+        productsArray[3] = new Product("Redmi Note 14 Pro + 5G", "01.12.2024",
+                "Xiaomi Communication Co", "China", 1549, false);
+        productsArray[4] = new Product("Huawei nova Y72S", "01.01.2024",
+                "Huawei Device Co.", "China", 449, true);
+
+        productsArray[2].info();
     }
+
 }
