@@ -1,17 +1,59 @@
 package org.example;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        HashSet<StudentNew> studentNewSet = new HashSet<>();
+        studentNewSet.add(new StudentNew("Петров", 3, 3, 2));
+        studentNewSet.add(new StudentNew("Сидоров", 5, 4, 7));
+        studentNewSet.add(new StudentNew("Логунова", 1, 4, 8));
+        studentNewSet.add(new StudentNew("Токарева", 3, 3, 4));
+
+        for (StudentNew student : studentNewSet) {
+            System.out.println(student);
         }
+        studentNewSet.removeIf(studentNew -> studentNew.getAvMark() < 3);
+
+        System.out.println("--------------------");
+        for (StudentNew student : studentNewSet) {
+            System.out.println("Студент, переведенный на следующий курс: " + student);
+        }
+        System.out.println("------------------------");
+
+        int course = 3;
+        for (StudentNew s : studentNewSet) {
+            if (s.getCourse() == course) {
+                System.out.println("курс " + s.getCourse() + ": " + s.getLastName());
+            }
+        }
+        System.out.println("--------------------------");
+
+        course = 4;
+        for (StudentNew s : studentNewSet) {
+            if (s.getCourse() == course) {
+                System.out.println("курс " + s.getCourse() + ": " + s.getLastName());
+            }
+        }
+
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+        HashMap<String, String> pb = new HashMap<>();
+        pb.put("331542", "Vasa");
+        pb.put("654545", "Rasa");
+        pb.put("526978", "Sasa");
+        pb.put("526974", "Lisa");
+        pb.put("963258", "Kisa");
+
+        System.out.println(pb);
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+        pb.put ("656565", "Lisa");
+        System.out.println(pb);
+
+
+
     }
 }
+
