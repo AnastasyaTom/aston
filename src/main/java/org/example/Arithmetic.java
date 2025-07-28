@@ -1,0 +1,32 @@
+package org.example;
+
+public class Arithmetic {
+    int a;
+    int b;
+
+    public Arithmetic() {
+        this.a = a;
+        this.b = b;
+    }
+
+    public int summa(int a, int b) {
+        return a + b;
+    }
+
+    public int difference(int a, int b) {
+        return a - b;
+    }
+
+    public int multiplication(int a, int b) {
+        return a * b;
+    }
+
+    public double division(int a, int b) {
+        if (b != 0) {
+            return a / b;
+        } else {
+            System.out.println("Деление на ноль невозможно");
+        }
+        return a / b;
+    }
+}
