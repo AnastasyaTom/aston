@@ -5,25 +5,27 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
-        HashSet<StudentNew> studentNewSet = new HashSet<>();
-        studentNewSet.add(new StudentNew("Петров", 3, 3, 2));
-        studentNewSet.add(new StudentNew("Сидоров", 5, 4, 7));
-        studentNewSet.add(new StudentNew("Логунова", 1, 4, 8));
-        studentNewSet.add(new StudentNew("Токарева", 3, 3, 4));
+        HashSet<Student> studentSet = new HashSet<>();
+        studentSet.add(new Student("Петров", 3, 3, 2));
+        studentSet.add(new Student("Сидоров", 5, 4, 7));
+        studentSet.add(new Student("Логунова", 1, 4, 8));
+        studentSet.add(new Student("Токарева", 3, 3, 4));
 
-        for (StudentNew student : studentNewSet) {
+        System.out.println("Список студентов:");
+       // studentSet.forEach(System.out::println);
+        for (Student student : studentSet) {
             System.out.println(student);
         }
-        studentNewSet.removeIf(studentNew -> studentNew.getAvMark() < 3);
+        studentSet.removeIf(student -> student.getAvMark() < 3);
 
-        System.out.println("--------------------");
-        for (StudentNew student : studentNewSet) {
+        Student.setStudentPromote (studentSet);
+        for (Student student : studentSet) {
             System.out.println("Студент, переведенный на следующий курс: " + student);
         }
         System.out.println("------------------------");
 
         int course = 3;
-        for (StudentNew s : studentNewSet) {
+        for (Student s : studentSet) {
             if (s.getCourse() == course) {
                 System.out.println("курс " + s.getCourse() + ": " + s.getLastName());
             }
@@ -31,7 +33,7 @@ public class Main {
         System.out.println("--------------------------");
 
         course = 4;
-        for (StudentNew s : studentNewSet) {
+        for (Student s : studentSet) {
             if (s.getCourse() == course) {
                 System.out.println("курс " + s.getCourse() + ": " + s.getLastName());
             }
@@ -39,18 +41,17 @@ public class Main {
 
         System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
-        HashMap<String, String> pb = new HashMap<>();
-        pb.put("331542", "Vasa");
-        pb.put("654545", "Rasa");
-        pb.put("526978", "Sasa");
-        pb.put("526974", "Lisa");
-        pb.put("963258", "Kisa");
+        PhoneBook pb = new PhoneBook();
+        pb.add("Сидоров", "778800");
+        pb.add("Петров", "552336");
+        pb.add("Токарева", "663324");
+        pb.add("Логинов", "665481");
+        pb.add("Петров", "654789");
 
         System.out.println(pb);
         System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
-        pb.put ("656565", "Lisa");
-        System.out.println(pb);
+        System.out.println("Петров" + pb.get("Петров"));
 
 
 

@@ -6,24 +6,23 @@ import java.util.List;
 import java.util.Map;
 
 public class PhoneBook {
-    public static HashMap<String, String> pb = new HashMap<>();
+    private static Map <String, List<String>> pb;
 
-
-    public static void addPB(String number, String lastname) {
-        pb.put(number, lastname);
+    public PhoneBook (){
+         pb = new HashMap<>();
     }
 
-    public static void getPB(String lastname, String number) {
+    public static void add (String lastname, String number) {
+        pb.computeIfAbsent(lastname, k -> new ArrayList<>()).add(number);
+    }
 
-        List<String> result = new ArrayList<String>();
+    public List <String> get(String lastname) {
+        return pb.getOrDefault(lastname, new ArrayList<>());
 
-        for (Map.Entry entry : pb.entrySet()) {
-            if (lastname.equalsIgnoreCase((String)entry.getValue())){
-                result.add((String)entry.getKey());
-            }
-            System.out.println(result);
-        }
-
+    }
+    @Override
+    public String toString() {
+        return pb.toString();
     }
 
 }
