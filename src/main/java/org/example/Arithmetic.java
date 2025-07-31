@@ -22,11 +22,9 @@ public class Arithmetic {
     }
 
     public double division(int a, int b) {
-        if (b != 0) {
-            return a / b;
-        } else {
-            System.out.println("Деление на ноль невозможно");
+        if (b == 0) {
+           throw new ArithmeticException("Деление на ноль невозможно");
         }
-        return a / b;
+        return (double) a / b;
     }
 }

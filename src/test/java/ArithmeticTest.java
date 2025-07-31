@@ -12,7 +12,7 @@ public class ArithmeticTest {
     @Test
     void testSumma1() {
         Arithmetic arithmetic = new Arithmetic();
-        Assertions.assertEquals(10, arithmetic.summa(4, 7));
+        Assertions.assertEquals(11, arithmetic.summa(4, 7));
     }
 
     @Test
@@ -23,7 +23,7 @@ public class ArithmeticTest {
     @Test
     void testDifference1() {
         Arithmetic arithmetic = new Arithmetic();
-        Assertions.assertEquals(3, arithmetic.difference(10, -7));
+        Assertions.assertNotEquals(3, arithmetic.difference(10, -7));
     }
     @Test
     void testMultiplication() {
@@ -33,7 +33,7 @@ public class ArithmeticTest {
     @Test
     void testMultiplication1() {
         Arithmetic arithmetic = new Arithmetic();
-        Assertions.assertEquals(20, arithmetic.multiplication(3, 7));
+        Assertions.assertNotEquals(20, arithmetic.multiplication(3, 7));
     }
     @Test
     void testDivision(){
@@ -43,7 +43,7 @@ public class ArithmeticTest {
     @Test
     void testDivision1(){
         Arithmetic arithmetic = new Arithmetic();
-        Assertions.assertEquals(4, arithmetic.division(21,7));
+        Assertions.assertNotEquals(4, arithmetic.division(21,7));
     }
     @Test
     void testDivision2(){

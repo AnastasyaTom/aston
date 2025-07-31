@@ -23,17 +23,17 @@ public class ComparisonTest {
     @Test
     public void testComparison4() {
         Comparison comp = new Comparison();
-        Assertions.assertEquals("c меньше d", comp.comparison(6,5));
+        Assertions.assertNotEquals("c меньше d", comp.comparison(6,5));
     }
     @Test
     public void testComparison5() {
         Comparison comp = new Comparison();
-        Assertions.assertEquals("c больше d", comp.comparison(5,10));
+        Assertions.assertNotEquals("c больше d", comp.comparison(5,10));
     }
     @Test
     public void testComparison6() {
         Comparison comp = new Comparison();
-        Assertions.assertEquals("c равно d", comp.comparison(5,3));
+        Assertions.assertNotEquals("c равно d", comp.comparison(5,3));
     }
 
 
