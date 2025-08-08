@@ -6,37 +6,30 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestContinueButtonFunctionality extends BaseSelenium {
 
     @Test
     public void testContinueButtonFunctionality() {
-        try {
+        acceptCookiesIfPresent();
+        WebElement phoneInput = driver.findElement(By.xpath("//input[@id='connection-phone']"));
+        WebElement sumInput = driver.findElement(By.xpath("//input[@id='connection-sum']"));
+        WebElement continueButton = driver.findElement(By.xpath("//button[text()='Продолжить']"));
 
-            WebElement serviceType = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//button[@class='select_header' and contains(.,'Услуги связи')]")));
-            serviceType.click();
+        phoneInput.sendKeys(PHONE_NUMBER);
+        sumInput.sendKeys("10");
+        continueButton.click();
 
-            WebElement phoneInput = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.id("connection-phone")));
-            phoneInput.clear();
-            phoneInput.sendKeys("297777777");
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(By.xpath("//*[@class='bepaid-iframe']")));
+        wait.until(ExpectedConditions.textToBePresentInElement(
+                driver.findElement(By.xpath("//div[@class='pay-description__text']/span")),
+                PHONE_NUMBER
+        ));
+        WebElement sumText = driver.findElement(By.xpath("//div[@class='pay-description__cost']/span"));
 
+        assertEquals("10.00 BYN", sumText.getText());
 
-            WebElement continueButton = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//button[contains(.,'Продолжить')]")));
-            assertTrue(continueButton.isEnabled(), "Кнопка 'Продолжить' должна быть активна");
-            continueButton.click();
-
-            WebElement nextStep = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.id("next-step-element")));
-            assertTrue(nextStep.isDisplayed(), "После нажатия кнопки должен отображаться следующий шаг");
-
-        } catch (Exception e) {
-            fail("Тест не пройден: " + e.getMessage());
-        }
     }
 
 

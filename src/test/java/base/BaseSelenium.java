@@ -34,13 +34,12 @@ public class BaseSelenium {
         driver.quit();
     }
 
-    private void acceptCookiesIfPresent() {
-        try {
-            WebElement acceptCookies = wait.until(ExpectedConditions.elementToBeClickable(
-                    By.xpath("//button[contains(text(), 'Принять') or contains(text(), 'Accept')]")));
-            acceptCookies.click();
-        } catch (Exception e) {
-            System.out.println("Cookies acceptance window not found");
+    protected void acceptCookiesIfPresent() {
+        WebElement acceptCoockies = driver.findElement(By.xpath("//button[@id='cookie-agree']"));
+        if (driver.findElement(By.xpath("//button[@id='cookie-agree']")).isDisplayed()) {
+            acceptCoockies.click();
+        } else {
+            System.out.println("Модальное окно не появилось");
         }
     }
 }
