@@ -1,4 +1,7 @@
 import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 import java.net.http.*;
 import java.net.URI;
@@ -6,18 +9,17 @@ import java.net.URI;
 public class DeleteRequestTest {
 
     @Test
-    public void testDeleteRequest() throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://postman-echo.com/delete"))
-                .DELETE()
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        assertEquals(200, response.statusCode());
-
-        assertTrue(response.body().contains("\"url\":\"https://postman-echo.com/delete\""));
+    void deleteRequestTest() {
+        given()
+                .baseUri("https://postman-echo.com")
+                .contentType("application/json")
+                .queryParam("recordId", "789")
+                .body("{\"confirmation\": \"true\"}")
+                .when()
+                .delete("/delete")
+                .then()
+                .statusCode(200)
+                .body("args.recordId", equalTo("789"))
+                .body("json.confirmation", equalTo("true"));
     }
 }

@@ -1,4 +1,8 @@
 import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.net.http.*;
@@ -7,21 +11,20 @@ import java.net.URI;
 public class PostRawTextTest {
 
     @Test
-    public void testPostRawText() throws Exception {
-        String rawText = "Это тестовое сообщение";
+    void postRawTextTest() {
+        String textPayload = "Raw text payload";
 
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://postman-echo.com/post"))
-                .header("Content-Type", "text/plain")
-                .POST(HttpRequest.BodyPublishers.ofString(rawText))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-
-        assertEquals(200, response.statusCode());
-
-        assertTrue(response.body().contains(rawText));
+        given()
+                .baseUri("https://postman-echo.com")
+                .contentType("text/plain; charset=UTF-8")
+                .queryParam("queryParam", "testValue")
+                .body(textPayload)
+                .when()
+                .post("/post")
+                .then()
+                .statusCode(200)
+                .body("data", equalTo(textPayload))
+                .body("args.queryParam", equalTo("testValue"))
+                .body("headers.content-type", containsString("text/plain"));
     }
 }

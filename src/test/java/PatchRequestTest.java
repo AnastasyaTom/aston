@@ -1,26 +1,25 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.net.http.*;
-import java.net.URI;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 
 public class PatchRequestTest {
 
     @Test
-    public void testPatchRequest() throws Exception {
-        String patchData = "{\"status\":\"updated\"}";
 
-        HttpClient client = HttpClient.newHttpClient();
+    void patchRequestTest() {
+        String jsonPayload = "{\"status\": \"active\", \"enabled\": true}";
 
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://postman-echo.com/patch"))
-                .header("Content-Type", "application/json")
-                .method("PATCH", HttpRequest.BodyPublishers.ofString(patchData))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-
-        assertEquals(200, response.statusCode());
-
-        assertTrue(response.body().contains("\"status\":\"updated\""));
+        given()
+                .baseUri("https://postman-echo.com")
+                .contentType("application/json")
+                .body(jsonPayload)
+                .when()
+                .patch("/patch")
+                .then()
+                .statusCode(200)
+                .body("json.status", equalTo("active"))
+                .body("json.enabled", equalTo(true));
     }
+
 }

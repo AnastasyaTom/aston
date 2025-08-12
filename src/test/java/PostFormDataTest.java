@@ -1,4 +1,7 @@
 import org.junit.jupiter.api.Test;
+
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.*;
 import java.net.http.*;
 import java.net.URI;
@@ -6,20 +9,18 @@ import java.net.URI;
 public class PostFormDataTest {
 
     @Test
-    public void testPostFormData() throws Exception {
-        HttpClient client = HttpClient.newHttpClient();
-
-        String formData = "name=John&age=30";
-
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("https://postman-echo.com/post"))
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .POST(HttpRequest.BodyPublishers.ofString(formData))
-                .build();
-
-        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-        assertEquals(200, response.statusCode());
-        assertTrue(response.body().contains("\"name\":\"John\""));
-        assertTrue(response.body().contains("\"age\":\"30\""));
+    void postFormDataTest() {
+        given()
+                .baseUri("https://postman-echo.com")
+                .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+                .formParam("username", "testUser")
+                .formParam("email", "test@example.com")
+                .when()
+                .post("/post")
+                .then()
+                .statusCode(200)
+                .body("form.username", equalTo("testUser"))
+                .body("form.email", equalTo("test@example.com"));
     }
+
 }
